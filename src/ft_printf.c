@@ -4,27 +4,53 @@
 
 /*
 ** Suggested algorithm:
-** Step 0. Read all given arguments and save it to void** array.
-** Step 1. Analyze all given arguments:
-** Step 1.1. Analyze format string
-** Step 1.2. While analyzing format string, if "%" - call function to detect what flag is this exactly
-** Step 1.3. Rewrite format string: before flag part + argument + after flag part
-** Step 2. Print result format string
+** 1. Print format string until '%'
+ * 2. find out what character is after '%'
+ * 3. handle
 */
 
 #include "../includes/ft_printf.h"
 
-int     ft_printf(const char *format, ...)
+int     ft_handle_csp(char identifier, ...)
 {
-    va_list argptr;
-    int     i;
-
-    i = 0;
-    va_start(argptr, format);
-    while(va_arg(argptr, void*))
-        i++;
-    va_end(argptr);
-    ft_putnbr(i);
-    return (0);
+    // c char
+    // s char*
+    // p void*
 }
 
+int     ft_choose_handler(char strptr)
+{
+    if (strptr == 'c' || strptr == 's' || strptr == 'p')
+        return 1;
+    else
+        return 0;
+}
+
+char     *ft_putformat(const char *string)
+{
+    char    *traverse;
+
+    traverse = (char *)string;
+    while( *traverse != '%' && *traverse)
+    {
+        ft_putchar(*traverse);
+        traverse++;
+    }
+    return traverse;
+}
+
+int     ft_printf(const char *format, ...)
+{
+    char *position;
+    va_list argptr;
+
+    va_start(argptr, format);
+    position = ft_putformat(format);
+    position++;
+    if (*position == 's')
+    {
+        ft_putstr(va_arg(argptr, char *));
+        position++;
+    }
+    return (0);
+}

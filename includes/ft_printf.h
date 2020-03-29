@@ -9,6 +9,9 @@
 #include <unistd.h>
 #include "../libft/libft.h"
 
+// to delete
+#include "stdio.h"
+
 int     ft_printf(const char *format, ...);
 
 #endif //FT_PRINTF_FT_PRINTF_H
