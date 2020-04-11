@@ -11,26 +11,11 @@
 
 #include "../includes/ft_printf.h"
 
-int     ft_handle_csp(char identifier, ...)
-{
-    // c char
-    // s char*
-    // p void*
-}
-
-int     ft_choose_handler(char strptr)
-{
-    if (strptr == 'c' || strptr == 's' || strptr == 'p')
-        return 1;
-    else
-        return 0;
-}
-
-char     *ft_putformat(const char *string)
+char     *ft_putformat(const char **string)
 {
     char    *traverse;
 
-    traverse = (char *)string;
+    traverse = (char *)*string;
     while( *traverse != '%' && *traverse)
     {
         ft_putchar(*traverse);
@@ -39,18 +24,42 @@ char     *ft_putformat(const char *string)
     return traverse;
 }
 
+int    fake_function(va_list arg_list)
+{
+    arg_list++;
+    return (0);
+}
+
+int    ft_parse_args(const char *fstr, va_list arg_list)
+{
+    char    *position;
+
+    position = ft_putformat(&fstr);
+    while(*position != '\0')
+    {
+        position++;
+        //handle format conversion
+        if(*position == 's')
+            ft_putstr(va_arg(arg_list, char *));
+        else if(*position == 'c')
+            ft_putchar(va_arg(arg_list, int));
+        else if(*position == 'p') // ATTENTION! %p should handle pointer of ANY type
+            ft_putstr((char *)va_arg(arg_list, void *));
+        else if(*position == 'd')
+            ft_putstr(ft_itoa(va_arg(arg_list, int)));
+        else
+            position = ft_putformat((const char **)&position);
+    }
+    fake_function(arg_list);
+    return (1);
+}
+
 int     ft_printf(const char *format, ...)
 {
-    char *position;
+    //char *position;
     va_list argptr;
 
     va_start(argptr, format);
-    position = ft_putformat(format);
-    position++;
-    if (*position == 's')
-    {
-        ft_putstr(va_arg(argptr, char *));
-        position++;
-    }
+    ft_parse_args(format, argptr);
     return (0);
 }
