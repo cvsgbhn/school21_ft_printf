@@ -12,6 +12,12 @@
 // to delete
 #include "stdio.h"
 
+typedef struct  s_printf
+{
+    char    *format;
+    va_list args;
+}               t_pf;
+
 int     ft_printf(const char *format, ...);
 
 #endif //FT_PRINTF_FT_PRINTF_H

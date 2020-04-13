@@ -30,7 +30,7 @@ clean:
 	@rm -rf build/
 
 fclean: clean
-	@make fclean -C ./Libft
+	@make fclean -C ./libft
 	@rm -f $(NAME)
 
 build:

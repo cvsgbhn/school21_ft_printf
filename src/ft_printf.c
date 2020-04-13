@@ -24,12 +24,6 @@ char     *ft_putformat(const char **string)
     return traverse;
 }
 
-int    fake_function(va_list arg_list)
-{
-    arg_list++;
-    return (0);
-}
-
 int    ft_parse_args(const char *fstr, va_list arg_list)
 {
     char    *position;
@@ -50,16 +44,21 @@ int    ft_parse_args(const char *fstr, va_list arg_list)
         else
             position = ft_putformat((const char **)&position);
     }
-    fake_function(arg_list);
     return (1);
 }
 
 int     ft_printf(const char *format, ...)
 {
-    //char *position;
-    va_list argptr;
+    t_pf    *puts;
+    puts = (t_pf *)malloc(sizeof(t_pf));
 
-    va_start(argptr, format);
-    ft_parse_args(format, argptr);
+    if(format)
+    {
+        va_start(puts->args, format);
+        puts->format = (char *)format;
+        ft_parse_args(puts->format, puts->args);
+        va_end(puts->args);
+    }
+    free(puts);
     return (0);
 }
