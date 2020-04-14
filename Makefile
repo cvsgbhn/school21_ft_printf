@@ -6,15 +6,16 @@ NAME =ft_printf
 
 SRCS	=$(addprefix src/, $(FILENAMES))
 OBJS	=$(addprefix build/, $(FILENAMES:.c=.o))
+OBJS_DIR = build/
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 CFLAGS	+= -I includes/
 LFLAGS	= -L ./libft/
 
-all: $(NAME)
+all: $(OBJS) $(NAME)
 
-$(NAME):$(OBJS) | lib
+$(NAME):$(OBJS_DIR) | lib
 	@$(CC) $(CFLAGS) -o $(NAME) $(LFLAGS) $(OBJS) -lft
 
 build/%.o: src/%.c | build
