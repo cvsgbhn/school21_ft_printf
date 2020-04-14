@@ -5,15 +5,18 @@ FILENAMES +=  ft_printf.c
 NAME =ft_printf
 
 SRCS	=$(addprefix src/, $(FILENAMES))
-OBJS	=$(addprefix build/, $(FILENAMES:.c=.o))
 OBJS_DIR = build/
+OBJS	=$(addprefix $(OBJS_DIR), $(FILENAMES:.c=.o))
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 CFLAGS	+= -I includes/
 LFLAGS	= -L ./libft/
 
-all: $(OBJS) $(NAME)
+all: $(OBJS_DIR) $(NAME)
+
+$(OBJS_DIR):
+	@mkdir -p $(OBJS_DIR)
 
 $(NAME):$(OBJS_DIR) | lib
 	@$(CC) $(CFLAGS) -o $(NAME) $(LFLAGS) $(OBJS) -lft
@@ -25,10 +28,10 @@ re: fclean all
 
 lib:
 	@make -C ./libft
-	@make clean -C ./libft
 
 clean:
 	@rm -rf build/
+	@make clean -C ./libft
 
 fclean: clean
 	@make fclean -C ./libft
