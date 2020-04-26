@@ -2,13 +2,6 @@
 // Created by ubuntuser on 21.03.2020.
 //
 
-/*
-** Suggested algorithm:
-** 1. Print format string until '%'
- * 2. find out what character is after '%'
- * 3. handle
-*/
-
 #include "../includes/ft_printf.h"
 
 char     *ft_putformat(const char **string)
@@ -24,12 +17,12 @@ char     *ft_putformat(const char **string)
     return traverse;
 }
 
-int    ft_parse_args(const char *fstr, va_list arg_list)
+int     ft_final_print(const char *fstr/*, va_list arg_list*/)
 {
     char    *position;
 
     position = ft_putformat(&fstr);
-    while(*position != '\0')
+    /*while(*position != '\0')
     {
         position++;
         //handle format conversion
@@ -43,7 +36,15 @@ int    ft_parse_args(const char *fstr, va_list arg_list)
             ft_putstr(ft_itoa(va_arg(arg_list, int)));
         else
             position = ft_putformat((const char **)&position);
-    }
+    }*/
+    ft_putchar('\n');
+    return (1);
+}
+
+int    ft_parse_args(const char *fstr, va_list arg_list)
+{
+    if(*position == 's')
+        ft_handle_string(va_arg(arg_list, char *));
     return (1);
 }
 
@@ -56,9 +57,11 @@ int     ft_printf(const char *format, ...)
     {
         va_start(puts->args, format);
         puts->format = (char *)format;
-        ft_parse_args(puts->format, puts->args);
+        ft_strcpy(puts->copy_format, puts->format);
+        if ((ft_parse_args(puts->format, puts->args)) == 1)
+            ft_final_print(puts->format, puts->args);
         va_end(puts->args);
     }
-    free(puts);
+    ft_memdel(puts);
     return (0);
 }
