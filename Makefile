@@ -1,28 +1,29 @@
 .PHONY: clean fclean re make all
 
-FILENAMES = main.c
-FILENAMES +=  ft_printf.c
-NAME =ft_printf
+FILENAMES	= main.c
+FILENAMES	+= ft_printf.c
+FILENAMES	+= ft_handle_string.c
+NAME		= ft_printf
 
-SRCS	=$(addprefix src/, $(FILENAMES))
-OBJS_DIR = build/
-OBJS	=$(addprefix $(OBJS_DIR), $(FILENAMES:.c=.o))
+SRC_DIR		= src/
+SRCS		= $(addprefix $(SRC_DIR), $(FILENAMES))
+OBJS		= $(addprefix $(SRC_DIR), $(FILENAMES:.c=.o))
 
-CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
-CFLAGS	+= -I includes/
-LFLAGS	= -L ./libft/
+CC			= gcc
+CFLAGS		= -Wall -Wextra -Werror
+IFLAGS		= -I includes/
+LFLAGS		= -L ./libft/
+LIBFT		= libft/libft.a
 
-all: $(OBJS_DIR) $(NAME)
+all: $(NAME)
 
-$(OBJS_DIR):
-	@mkdir -p $(OBJS_DIR)
+$(NAME):$(OBJS)
+	@make -C ./libft
+	@$(CC) $(CFLAGS) $(IFLAGS) -c $(CS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
 
-$(NAME):$(OBJS_DIR) | lib
-	@$(CC) $(CFLAGS) -o $(NAME) $(LFLAGS) $(OBJS) -lft
-
-build/%.o: src/%.c | build
-	@$(CC) $(CFLAGS) -o $@ -c $^
+%.o: src/%.c | build
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 re: fclean all
 
