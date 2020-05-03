@@ -3,23 +3,24 @@
 FILENAMES	= main.c
 FILENAMES	+= ft_printf.c
 FILENAMES	+= ft_handle_string.c
-NAME		= ft_printf
+NAME		= pf
 
 SRC_DIR		= src/
 SRCS		= $(addprefix $(SRC_DIR), $(FILENAMES))
-OBJS		= $(addprefix $(SRC_DIR), $(FILENAMES:.c=.o))
+OBJS		= $(FILENAMES:.c=.o)
 
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
-IFLAGS		= -I includes/
-LFLAGS		= -L ./libft/
+IFLAGS		= -I./includes/  -I./libft/
+LFLAGS		= -L./libft/ -lft
 LIBFT		= libft/libft.a
 
 all: $(NAME)
 
 $(NAME):$(OBJS)
 	@make -C ./libft
-	@$(CC) $(CFLAGS) $(IFLAGS) -c $(CS)
+	@$(CC) $(CFLAGS) $(IFLAGS) -c $(SRCS)
+	@echo $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
 
 %.o: src/%.c | build

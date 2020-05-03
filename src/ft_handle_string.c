@@ -1,4 +1,4 @@
-include "../includes/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 int     ft_rewrite_format(t_pf *puts, char *arg)
 {
@@ -8,12 +8,12 @@ int     ft_rewrite_format(t_pf *puts, char *arg)
     size_t  new_size;
 
     new_size = ft_strlen(puts->copy_format) + ft_strlen(arg);
-    ft_memdel(puts->copy_format);
+    ft_memdel((void **)puts->copy_format);
     puts->copy_format = ft_memalloc(new_size);
-    ft_bzero(arg);
+    ft_bzero(arg, ft_strlen(arg));
     traverse = puts->format;
     i = 0;
-    while (traverse != '%' && *traverse)
+    while (*traverse != '%' && *traverse)
     {
         i++;
         traverse++;
@@ -37,6 +37,7 @@ int     ft_rewrite_format(t_pf *puts, char *arg)
 int     ft_error()
 {
     ft_putstr("ERROR");
+    return (0);
 }
 
 int     ft_handle_string(t_pf *puts)
@@ -46,10 +47,9 @@ int     ft_handle_string(t_pf *puts)
 
     arg = va_arg(puts->args, char*);
     p = arg;
-    valid = 0;
     while (p)
     {
-        if (ft_isprint(p) == 1)
+        if (ft_isprint(*p) == 1)
             p++;
         else
         {
