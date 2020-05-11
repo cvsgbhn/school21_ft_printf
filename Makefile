@@ -2,7 +2,7 @@
 
 FILENAMES	= main.c
 FILENAMES	+= ft_printf.c
-FILENAMES	+= ft_handle_string.c
+FILENAMES	+= ft_handle_string.c ft_handle_char.c ft_handle_int.c
 NAME		= pf
 
 SRC_DIR		= src/

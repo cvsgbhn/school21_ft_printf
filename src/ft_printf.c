@@ -6,6 +6,18 @@
 
 int     ft_handle_format(t_pf *puts)
 {
+    char c;
+
+    c = *(puts->p_format);
+    if (c == 's')
+        ft_handle_string(puts);
+    if (c == 'c')
+        ft_handle_char(puts);
+    if (c == 'd')
+        ft_handle_int(puts);
+    else
+        return (0);
+    return (1);
 }
 
 int     is_format(char c)
@@ -34,7 +46,7 @@ int     ft_putformat(t_pf *puts)
     {
         if(cur[i] == '%')
         {
-            puts->p_format= &(cur[i++]);
+            puts->p_format= &(cur[++i]);
             ft_parse_args(puts);
         }
         else
