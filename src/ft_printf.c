@@ -22,7 +22,7 @@ int     ft_handle_format(t_pf *puts)
 
 int     is_format(char c)
 {
-    if (c == 's' || c == 'c' || c == 'i')
+    if (c == 's' || c == 'c' || c == 'd')
         return (1);
     else
         return (0);
