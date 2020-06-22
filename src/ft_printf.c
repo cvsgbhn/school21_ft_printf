@@ -15,6 +15,8 @@ int     ft_handle_format(t_pf *puts)
         ft_handle_char(puts);
     if (c == 'd')
         ft_handle_int(puts);
+    else if (c == 'p' || c == 'x' || c == 'X')
+        ft_handle_hexadecimal(puts);
     else
         return (0);
     return (1);
@@ -22,7 +24,7 @@ int     ft_handle_format(t_pf *puts)
 
 int     is_format(char c)
 {
-    if (c == 's' || c == 'c' || c == 'd')
+    if (c == 's' || c == 'c' || c == 'd' || c == 'p')
         return (1);
     else
         return (0);
