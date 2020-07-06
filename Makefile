@@ -3,6 +3,7 @@
 FILENAMES	= main.c
 FILENAMES	+= ft_printf.c
 FILENAMES	+= ft_handle_string.c ft_handle_char.c ft_handle_int.c
+FILENAMES	+= ft_itoa_base.c ft_handle_hexadecimal.c ft_handle_u.c
 NAME		= pf
 
 SRC_DIR		= src/
@@ -32,7 +33,7 @@ lib:
 	@make -C ./libft
 
 clean:
-	@rm -rf build/
+	@rm -rf $(OBJS)
 	@make clean -C ./libft
 
 fclean: clean

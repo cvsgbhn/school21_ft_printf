@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntuser/CLionProjects/ft_printf/includes/ft_printf.h
+stdarg.h
+-
+unistd.h
+-
+stdlib.h
+-
+stdint.h
+-
+../libft/libft.h
+/home/ubuntuser/CLionProjects/ft_printf/libft/libft.h
+stdio.h
+-
+
+/home/ubuntuser/CLionProjects/ft_printf/libft/libft.h
+unistd.h
+-
+string.h
+-
+stdlib.h
+-
+
+/home/ubuntuser/CLionProjects/ft_printf/src/main.c
+../includes/ft_printf.h
+/home/ubuntuser/CLionProjects/ft_printf/includes/ft_printf.h
+stdio.h
+-
+
